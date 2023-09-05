@@ -75,4 +75,9 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.hosts << `hostname`.chomp
+
+  if ENV['TRUSTED_IP']
+    config.web_console.whitelisted_ips = ENV['TRUSTED_IP']
+    BetterErrors::Middleware.allow_ip!   ENV['TRUSTED_IP']
+  end
 end
